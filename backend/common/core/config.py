@@ -100,6 +100,11 @@ class Settings(BaseSettings):
     LOCAL_MODEL_PATH: str = '/opt/sqlbot/models'
     DEFAULT_EMBEDDING_MODEL: str = 'shibing624/text2vec-base-chinese'
     EMBEDDING_ENABLED: bool = True
+    # OpenAI 兼容 Embedding API 配置（替换本地 HuggingFace 模型）
+    EMBEDDING_OPENAI_ENABLED: bool = True
+    EMBEDDING_OPENAI_API_URL: str = 'http://localhost:7997/v1/embeddings'
+    EMBEDDING_OPENAI_API_KEY: str = ''
+    EMBEDDING_OPENAI_MODEL: str = 'shibing624/text2vec-base-chinese'
     EMBEDDING_DEFAULT_SIMILARITY: float = 0.4
     EMBEDDING_TERMINOLOGY_SIMILARITY: float = EMBEDDING_DEFAULT_SIMILARITY
     EMBEDDING_DATA_TRAINING_SIMILARITY: float = EMBEDDING_DEFAULT_SIMILARITY
@@ -128,6 +133,7 @@ class Settings(BaseSettings):
 
     @field_validator('SQL_DEBUG',
                      'EMBEDDING_ENABLED',
+                     'EMBEDDING_OPENAI_ENABLED',
                      'GENERATE_SQL_QUERY_LIMIT_ENABLED',
                      'PARSE_REASONING_BLOCK_ENABLED',
                      'PG_POOL_PRE_PING',
