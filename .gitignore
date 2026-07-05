@@ -189,3 +189,5 @@ test.py
 
 
 !/.venv/
+**/.omo
+**/.opencode-trace
