@@ -518,13 +518,13 @@ def system_log(config: Union[LogConfig, Dict]):
                     )
 
                 if config.operation_type == OperationType.LOGIN:
-                    input_account_dec = SystemLogger.extract_from_function_params(
+                    input_account_enc = SystemLogger.extract_from_function_params(
                         "form_data.username",
                         args,
                         kwargs
                     )
                     from common.utils.crypto import sqlbot_decrypt
-                    input_account = await sqlbot_decrypt(input_account_dec)
+                    input_account = sqlbot_decrypt(input_account_enc)
                     with Session(engine) as session:
                         userInfo = get_user_by_account(session=session, account=input_account)
                         if userInfo is not None:

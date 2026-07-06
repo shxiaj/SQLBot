@@ -166,9 +166,9 @@ async def get_default_config(custom_model_id: Optional[int] = None) -> LLMConfig
             except Exception:
                 pass
         if not db_model.api_domain.startswith("http"):
-            db_model.api_domain = await sqlbot_decrypt(db_model.api_domain)
+            db_model.api_domain = sqlbot_decrypt(db_model.api_domain)
             if db_model.api_key:
-                db_model.api_key = await sqlbot_decrypt(db_model.api_key)
+                db_model.api_key = sqlbot_decrypt(db_model.api_key)
 
         # 构造 LLMConfig
         return LLMConfig(

@@ -15,9 +15,9 @@ async def async_model_info():
                 current_model_change = False
                 if model.api_domain.startswith("http"):
                     if model.api_key:
-                        model.api_key = await sqlbot_encrypt(model.api_key)
+                        model.api_key = sqlbot_encrypt(model.api_key)
                     if model.api_domain:
-                        model.api_domain = await sqlbot_encrypt(model.api_domain)
+                        model.api_domain = sqlbot_encrypt(model.api_domain)
                     any_model_change = True
                     current_model_change = True
                 if model.supplier and model.supplier == 12:
