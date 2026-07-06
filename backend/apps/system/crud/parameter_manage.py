@@ -1,9 +1,9 @@
 from fastapi import Request
-from sqlbot_xpack.config.arg_manage import get_group_args, save_group_args
-from sqlbot_xpack.config.model import SysArgModel
+from apps.system.crud.sys_arg_manage import get_group_args, save_group_args
+from apps.system.models.sys_arg import SysArgModel
 import json
 from common.core.deps import SessionDep
-from sqlbot_xpack.file_utils import SQLBotFileUtils
+from common.utils.file_utils import SQLBotFileUtils
 
 async def get_parameter_args(session: SessionDep) -> list[SysArgModel]:
     group_args = await get_group_args(session=session)

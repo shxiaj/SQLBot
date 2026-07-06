@@ -5,7 +5,7 @@ from typing import List, Optional
 
 from fastapi import APIRouter, Form, HTTPException, Path, Query, Request, Response, UploadFile
 from fastapi.responses import StreamingResponse
-from sqlbot_xpack.file_utils import SQLBotFileUtils
+from common.utils.file_utils import SQLBotFileUtils
 from sqlmodel import select
 
 from apps.datasource.models.datasource import CoreDatasource

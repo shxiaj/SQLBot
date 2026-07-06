@@ -1,5 +1,5 @@
 from fastapi import APIRouter, Request
-from sqlbot_xpack.config.model import SysArgModel
+from apps.system.models.sys_arg import SysArgModel
 
 from apps.system.crud.parameter_manage import get_groups, get_parameter_args, save_parameter_args
 from apps.system.schemas.permission import SqlbotPermission, require_permissions

@@ -2,7 +2,6 @@
 import { onMounted, provide, reactive, unref } from 'vue'
 import icon_info_outlined_1 from '@/assets/svg/icon_info_outlined_1.svg'
 import { useI18n } from 'vue-i18n'
-import PlatformParam from './xpack/PlatformParam.vue'
 import { request } from '@/utils/request'
 import { formatArg } from '@/utils/utils'
 const { t } = useI18n()
@@ -193,8 +192,6 @@ onMounted(() => {
           </div>
         </el-row>
       </div>
-
-      <platform-param />
     </div>
     <div class="save" style="margin-top: 16px">
       <el-button type="primary" @click="saveHandler">{{ t('common.save') }}</el-button>

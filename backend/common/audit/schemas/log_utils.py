@@ -11,9 +11,9 @@ from apps.system.models.user import UserModel
 from apps.terminology.models.terminology_model import Terminology
 from apps.system.models.system_model import AssistantModel
 
-from sqlbot_xpack.permissions.models.ds_rules import DsRules
-from sqlbot_xpack.custom_prompt.models.custom_prompt_model import CustomPrompt
-from sqlbot_xpack.permissions.models.ds_permission import DsPermission
+from apps.permission.models.ds_rules import DsRules
+from apps.custom_prompt.models.custom_prompt_model import CustomPrompt
+from apps.permission.models.ds_permission import DsPermission
 from sqlalchemy import literal_column
 
 

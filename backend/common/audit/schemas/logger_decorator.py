@@ -8,7 +8,7 @@ from datetime import datetime
 from pydantic import BaseModel
 from sqlmodel import Session, select
 import traceback
-from sqlbot_xpack.audit.curd.audit import build_resource_union_query
+from common.audit.schemas.log_utils import build_resource_union_query
 from common.audit.models.log_model import OperationType, OperationStatus, SystemLog, SystemLogsResource
 from common.audit.schemas.request_context import RequestContext
 from apps.system.crud.user import get_user_by_account

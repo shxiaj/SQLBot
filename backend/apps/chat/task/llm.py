@@ -18,10 +18,14 @@ from langchain_community.utilities import SQLDatabase
 from langchain_core.messages import BaseMessage, HumanMessage, AIMessage, BaseMessageChunk
 from sqlalchemy import and_, select
 from sqlalchemy.orm import sessionmaker, scoped_session
-from sqlbot_xpack.config.model import SysArgModel
-from sqlbot_xpack.custom_prompt.curd.custom_prompt import find_custom_prompts
-from sqlbot_xpack.custom_prompt.models.custom_prompt_model import CustomPromptTypeEnum
-from sqlbot_xpack.license.license_manage import SQLBotLicenseUtil
+from apps.system.models.sys_arg import SysArgModel
+from apps.custom_prompt.curd.custom_prompt import find_custom_prompts
+from apps.custom_prompt.models.custom_prompt_model import CustomPromptTypeEnum
+
+class SQLBotLicenseUtil:
+    @staticmethod
+    def valid() -> bool:
+        return True
 from sqlmodel import Session
 
 from apps.ai_model.model_factory import LLMConfig, LLMFactory, get_default_config

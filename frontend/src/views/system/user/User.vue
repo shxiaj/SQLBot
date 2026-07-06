@@ -1181,16 +1181,9 @@ const formatUserOrigin = (origin?: number) => {
   return originArray[origin - 1]
 }
 
-const showSyncBtn = ref(false)
+const showSyncBtn = ref(true)
 onMounted(() => {
-  // eslint-disable-next-line no-undef
-  const obj = LicenseGenerator.getLicense()
-  if (obj?.status === 'valid') {
-    showSyncBtn.value = true
-    loadData()
-  } else {
-    platformType.value = []
-  }
+  loadData()
 
   workspaceList().then((res) => {
     options.value = res || []

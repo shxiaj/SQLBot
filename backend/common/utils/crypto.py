@@ -1,7 +1,16 @@
-from sqlbot_xpack.core import sqlbot_decrypt as xpack_sqlbot_decrypt, sqlbot_encrypt as xpack_sqlbot_encrypt
+import base64
 
-async def sqlbot_decrypt(text: str) -> str:
-    return await xpack_sqlbot_decrypt(text)
 
-async def sqlbot_encrypt(text: str) -> str:
-    return await xpack_sqlbot_encrypt(text)
+def sqlbot_decrypt(text: str) -> str:
+    if not text:
+        return ''
+    try:
+        return base64.b64decode(text).decode('utf-8')
+    except Exception:
+        return text
+
+
+def sqlbot_encrypt(text: str) -> str:
+    if not text:
+        return ''
+    return base64.b64encode(text.encode('utf-8')).decode('utf-8')

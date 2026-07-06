@@ -523,15 +523,10 @@ const handleEmbedded = (row: any) => {
     const script = document.createElement('script');
     script.defer = true;
     script.async = true;
-    script.src = "${origin + pathname}xpack_static/sqlbot-embedded-dynamic.umd.js";
+    script.src = "${origin + pathname}assistant.js?id=${row.id}";
+    script.id = "sqlbot-embedded-script-${row.id}";
     document.head.appendChild(script);
   })()
-  let sqlbot_embedded_timer = setInterval(() => {
-    if (sqlbot_embedded_handler?.mounted) {
-      sqlbot_embedded_handler.mounted('.copilot', { "embeddedId": "${row.id}" })
-      clearInterval(sqlbot_embedded_timer)
-    }
-  }, 1000)
   `
 }
 const copyJsCode = () => {

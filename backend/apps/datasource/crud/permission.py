@@ -2,9 +2,9 @@ import json
 from typing import List, Optional
 
 from sqlalchemy import and_
-from sqlbot_xpack.permissions.api.permission import transRecord2DTO
-from sqlbot_xpack.permissions.models.ds_permission import DsPermission, PermissionDTO
-from sqlbot_xpack.permissions.models.ds_rules import DsRules
+from apps.permission.api.permission import transRecord2DTO
+from apps.permission.models.ds_permission import DsPermission, PermissionDTO
+from apps.permission.models.ds_rules import DsRules
 
 from apps.datasource.crud.row_permission import transFilterTree
 from apps.datasource.models.datasource import CoreDatasource, CoreField, CoreTable

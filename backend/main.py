@@ -1,7 +1,6 @@
 import os
 from typing import Dict, Any
 
-import sqlbot_xpack
 from alembic.config import Config
 from fastapi import FastAPI, Request
 from fastapi.concurrency import asynccontextmanager
@@ -56,9 +55,7 @@ async def lifespan(app: FastAPI):
     init_data_training_embedding_data()
     init_table_and_ds_embedding()
     SQLBotLogUtil.info("✅ SQLBot 初始化完成")
-    await sqlbot_xpack.core.clean_xpack_cache()
     await async_model_info()  # 异步加密已有模型的密钥和地址
-    await sqlbot_xpack.core.monitor_app(app)
     yield
     SQLBotLogUtil.info("SQLBot 应用关闭")
 
@@ -211,7 +208,6 @@ app.add_exception_handler(Exception, exception_handler.global_exception_handler)
 
 mcp.setup_server()
 
-sqlbot_xpack.init_fastapi_app(app)
 if __name__ == "__main__":
     import uvicorn
 
