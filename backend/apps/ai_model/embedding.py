@@ -32,7 +32,12 @@ class OpenAIEmbeddings(Embeddings):
         self._client = httpx.Client(timeout=120, headers={'Authorization': f'Bearer {api_key}' if api_key else ''})
 
     def _call_api(self, input_texts: list[str]) -> list[list[float]]:
-        payload = {"input": input_texts, "model": self.model}
+        payload = {
+            "model": self.model,
+            "dimensions": 768,
+            "input": input_texts,
+            "modality": "text"
+        }
         resp = self._client.post(self.api_url, json=payload)
         resp.raise_for_status()
         data = resp.json()
