@@ -4,7 +4,7 @@ from sqlalchemy.orm import Session
 from apps.custom_prompt.models.custom_prompt_model import CustomPrompt, CustomPromptTypeEnum
 
 
-async def find_custom_prompts(
+def find_custom_prompts(
     session: Session,
     custom_prompt_type: CustomPromptTypeEnum,
     oid: int,
@@ -15,7 +15,7 @@ async def find_custom_prompts(
     
     # 全局提示词
     stmt = select(CustomPrompt).where(
-        CustomPrompt.type == custom_prompt_type,
+        CustomPrompt.type == custom_prompt_type.value,
         CustomPrompt.oid == oid,
         CustomPrompt.specific_ds == False
     )
@@ -24,15 +24,14 @@ async def find_custom_prompts(
         prompts.append({
             "name": p.name,
             "prompt": p.prompt,
-            "type": p.type.value
+            "type": p.type
         })
     
     # 指定数据源的提示词
     if datasource is not None:
         stmt2 = select(CustomPrompt).where(
-            CustomPrompt.type == custom_prompt_type,
-            CustomPrompt.specific_ds == True,
-            CustomPrompt.datasource_ids != None
+            CustomPrompt.type == custom_prompt_type.value,
+            CustomPrompt.specific_ds == True
         )
         result2 = session.exec(stmt2).all()
         for p in result2:
@@ -41,22 +40,8 @@ async def find_custom_prompts(
                 prompts.append({
                     "name": p.name,
                     "prompt": p.prompt,
-                    "type": p.type.value
+                    "type": p.type
                 })
-    
-    # 高级应用提示词
-    if advanced_application_id is not None:
-        stmt3 = select(CustomPrompt).where(
-            CustomPrompt.type == custom_prompt_type,
-            CustomPrompt.advanced_application == advanced_application_id
-        )
-        result3 = session.exec(stmt3).all()
-        for p in result3:
-            prompts.append({
-                "name": p.name,
-                "prompt": p.prompt,
-                "type": p.type.value
-            })
     
     prompt_text = '\n'.join([f"{p['name']}:\n{p['prompt']}" for p in prompts])
     return prompt_text, prompts

@@ -836,18 +836,23 @@ def save_analysis_predict_record(session: SessionDep, base_record: ChatRecord, a
 def start_log(session: SessionDep, ai_modal_id: int = None, ai_modal_name: str = None, operate: OperationEnum = None,
               record_id: int = None, full_message: Union[list[dict], dict] = None,
               local_operation: bool = False) -> ChatLog:
-    log = ChatLog(type=TypeEnum.CHAT, operate=operate, pid=record_id, ai_modal_id=ai_modal_id, base_modal=ai_modal_name,
-                  messages=full_message, start_time=datetime.datetime.now(), local_operation=local_operation)
-
-    result = ChatLog(**log.model_dump())
+    log = ChatLog(
+        type=TypeEnum.CHAT,
+        operate=operate,
+        pid=record_id,
+        ai_modal_id=ai_modal_id,
+        base_modal=ai_modal_name,
+        messages=full_message,
+        start_time=datetime.datetime.now(),
+        local_operation=local_operation,
+        error=False
+    )
 
     session.add(log)
     session.flush()
     session.refresh(log)
-    result.id = log.id
-    session.commit()
 
-    return result
+    return log
 
 
 def end_log(session: SessionDep, log: ChatLog, full_message: Union[list[dict], dict, str],

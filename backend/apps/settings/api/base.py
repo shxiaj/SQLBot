@@ -1,5 +1,6 @@
 import os
 from http.client import HTTPException
+from typing import Any
 
 from fastapi import APIRouter
 from fastapi.responses import FileResponse
@@ -38,3 +39,28 @@ async def download_excel(req: FileRequest):
         filename=filename,
         media_type='application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
     )
+
+
+@router.get("/license", include_in_schema=False)
+async def get_license() -> dict[str, Any]:
+    return {
+        "status": "active",
+        "corporation": "SQLBot",
+        "expired": "2099-12-31",
+        "count": 9999,
+        "version": "1.9.0",
+        "edition": "community",
+        "serialNo": "",
+        "remark": "",
+        "isv": "",
+    }
+
+
+@router.get("/license/version", include_in_schema=False)
+async def get_license_version() -> str:
+    return "1.9.0"
+
+
+@router.post("/license", include_in_schema=False)
+async def update_license(data: dict) -> dict[str, Any]:
+    return {"status": "success"}

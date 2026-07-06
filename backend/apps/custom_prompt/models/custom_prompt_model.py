@@ -1,13 +1,9 @@
 from datetime import datetime
 from enum import Enum
-from typing import Optional, List
+from typing import Optional, Any
 
-from sqlalchemy import BigInteger, Text, DateTime, Boolean, JSON, Column, Enum as SQLAlchemyEnum
+from sqlalchemy import BigInteger, Text, DateTime, Boolean, JSON, Column
 from sqlmodel import Field, SQLModel
-
-
-def enum_values(enum):
-    return [e.value for e in enum]
 
 
 class CustomPromptTypeEnum(str, Enum):
@@ -20,13 +16,10 @@ class CustomPrompt(SQLModel, table=True):
     __tablename__ = "custom_prompt"
 
     id: Optional[int] = Field(default=None, sa_column=Column(BigInteger, primary_key=True))
-    oid: Optional[int] = Field(default=None, sa_column=BigInteger)
-    type: CustomPromptTypeEnum = Field(
-        sa_column=Column(SQLAlchemyEnum(CustomPromptTypeEnum, native_enum=False, values_callable=enum_values, length=32))
-    )
+    oid: Optional[int] = Field(default=None, sa_column=Column(BigInteger, nullable=True))
+    type: str = Field(max_length=20)
     create_time: Optional[datetime] = Field(default=None, sa_column=DateTime)
     name: str = Field(max_length=255)
     prompt: str = Field(sa_column=Text)
-    specific_ds: bool = Field(default=False, sa_column=Boolean)
-    datasource_ids: Optional[List[int]] = Field(default=None, sa_column=Column(JSON))
-    advanced_application: int = Field(default=0, sa_column=BigInteger)
+    specific_ds: bool = Field(default=False, sa_column=Column(Boolean, nullable=True))
+    datasource_ids: Any = Field(default=None, sa_column=Column(JSON, nullable=True))

@@ -71,9 +71,9 @@ class ChatLog(SQLModel, table=True):
     operate: OperationEnum = Field(
         sa_column=Column(SQLAlchemyEnum(OperationEnum, native_enum=False, values_callable=enum_values, length=3)))
     pid: Optional[int] = Field(sa_column=Column(BigInteger, nullable=True))
-    ai_modal_id: Optional[int] = Field(sa_column=Column(BigInteger))
-    base_modal: Optional[str] = Field(max_length=255)
-    messages: Optional[list[dict]] = Field(sa_column=Column(JSONB))
+    ai_modal_id: Optional[int] = Field(sa_column=Column(BigInteger, nullable=True))
+    base_modal: Optional[str] = Field(max_length=255, nullable=True)
+    messages: Optional[list[dict]] = Field(sa_column=Column(JSONB, nullable=True))
     reasoning_content: Optional[str | None] = Field(sa_column=Column(Text, nullable=True))
     start_time: datetime = Field(sa_column=Column(DateTime(timezone=False), nullable=True))
     finish_time: datetime = Field(sa_column=Column(DateTime(timezone=False), nullable=True))
