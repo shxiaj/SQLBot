@@ -2,7 +2,7 @@ from datetime import datetime
 from typing import Optional, List
 
 from pydantic import BaseModel
-from sqlalchemy import BigInteger, Text, DateTime, Column
+from sqlalchemy import BigInteger, Text, DateTime, Column, Boolean
 from sqlmodel import Field, SQLModel
 
 
@@ -21,18 +21,18 @@ class ColumnPermissionItem(BaseModel):
 class DsPermission(SQLModel, table=True):
     __tablename__ = "ds_permission"
 
-    id: int = Field(sa_column=Column(BigInteger, primary_key=True))
+    id: int = Field(default=None, sa_column=Column(BigInteger, primary_key=True))
+    enable: bool = Field(default=True, sa_column=Column(Boolean, nullable=False))
     name: Optional[str] = Field(default=None, max_length=128, nullable=True)
-    enable: bool = Field(default=True)
-    auth_target_type: str = Field(max_length=128)
-    auth_target_id: int = Field(sa_column=BigInteger)
-    type: str = Field(max_length=64)
-    ds_id: int = Field(sa_column=BigInteger)
-    table_id: int = Field(sa_column=BigInteger)
-    expression_tree: str = Field(sa_column=Text)
-    permissions: str = Field(sa_column=Text)
-    white_list_user: str = Field(sa_column=Text)
-    create_time: datetime = Field(sa_column=DateTime)
+    auth_target_type: Optional[str] = Field(default=None, max_length=128, nullable=True)
+    auth_target_id: Optional[int] = Field(default=None, sa_column=Column(BigInteger, nullable=True))
+    type: str = Field(max_length=64, nullable=False)
+    ds_id: Optional[int] = Field(default=None, sa_column=Column(BigInteger, nullable=True))
+    table_id: Optional[int] = Field(default=None, sa_column=Column(BigInteger, nullable=True))
+    expression_tree: Optional[str] = Field(default=None, sa_column=Column(Text, nullable=True))
+    permissions: Optional[str] = Field(default=None, sa_column=Column(Text, nullable=True))
+    white_list_user: Optional[str] = Field(default=None, sa_column=Column(Text, nullable=True))
+    create_time: Optional[datetime] = Field(default=None, sa_column=Column(DateTime, nullable=True))
 
 
 class PermissionDTO(SQLModel):
